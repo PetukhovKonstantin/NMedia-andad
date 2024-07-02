@@ -86,19 +86,22 @@ class AppActivity : AppCompatActivity(R.layout.activity_app) {
                 when (menuItem.itemId) {
                     R.id.signin -> {
                         // TODO: just hardcode it, implementation must be in homework
-                        auth.setAuth(5, "x-token")
+                        viewModel.login(5, "x-token")
+                        //auth.setAuth(5, "x-token")
                         true
                     }
 
                     R.id.signup -> {
                         // TODO: just hardcode it, implementation must be in homework
-                        auth.setAuth(5, "x-token")
+                        viewModel.login(5, "x-token")
+                        //auth.setAuth(5, "x-token")
                         true
                     }
 
                     R.id.signout -> {
                         // TODO: just hardcode it, implementation must be in homework
-                        auth.removeAuth()
+                        viewModel.logout()
+                        //auth.removeAuth()
                         true
                     }
 
