@@ -103,8 +103,10 @@ class FeedFragment : Fragment() {
 
         authViewModel.authEvent.observe(viewLifecycleOwner) { event ->
             when (event) {
-                is AuthEvent.LoggedIn -> viewModel.refreshPosts()
-                is AuthEvent.LoggedOut -> viewModel.refreshPosts()
+                is AuthEvent.LoggedIn, AuthEvent.LoggedOut -> {
+                    adapter.refresh()
+                    viewModel.refreshPosts()
+                }
             }
         }
 
