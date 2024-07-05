@@ -72,7 +72,7 @@ class FeedFragment : Fragment() {
 
         // Актуальный вариант
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.data.collectLatest(adapter::submitData)
             }
         }
@@ -95,7 +95,7 @@ class FeedFragment : Fragment() {
                 adapter.loadStateFlow.collectLatest { state ->
                     binding.swiperefresh.isRefreshing =
                         state.refresh is LoadState.Loading ||
-                                state.prepend is LoadState.Loading ||
+                                //state.prepend is LoadState.Loading ||
                                 state.append is LoadState.Loading
                 }
             }
@@ -103,10 +103,7 @@ class FeedFragment : Fragment() {
 
         authViewModel.authEvent.observe(viewLifecycleOwner) { event ->
             when (event) {
-                is AuthEvent.LoggedIn, AuthEvent.LoggedOut -> {
-                    adapter.refresh()
-                    viewModel.refreshPosts()
-                }
+                is AuthEvent.LoggedIn, AuthEvent.LoggedOut -> adapter.refresh()
             }
         }
 
