@@ -18,6 +18,7 @@ data class PostEntity(
     val likes: Int = 0,
     @Embedded
     var attachment: AttachmentEmbeddable?,
+    val state: StateType? = StateType.NEW,
 ) {
     fun toDto() = Post(id, authorId, author, authorAvatar, content, published, likedByMe, likes, attachment?.toDto(), )
 
@@ -30,3 +31,7 @@ data class PostEntity(
 
 fun List<PostEntity>.toDto(): List<Post> = map(PostEntity::toDto)
 fun List<Post>.toEntity(): List<PostEntity> = map(PostEntity::fromDto)
+
+enum class StateType {
+    NEW, EDITED, DELETED
+}
